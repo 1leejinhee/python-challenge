@@ -2,12 +2,10 @@ with open('election_data.csv') as election_data_file:
     # No votes counted yet
     votes_counted = 0
 
-    # Start at line zero in computer land
+    # Start at line zero
     line_number = 0
 
     # The candiate list
-    # Sets inately list of unique values
-    # all_people = set()
     # create a dictionary and name it all ppl
     all_people = dict()
 
@@ -21,7 +19,7 @@ with open('election_data.csv') as election_data_file:
             # transform characters into numbers for column 0 and assign them voter_id as name
             # voter_id = int(columns[0])
             columns[0] = int(columns[0])
-            # give column 1 name county
+            # give column 1 the name County
             # county = columns[1]
             # name column 2 candidate
             # candidate = columns[2].strip()
@@ -35,8 +33,8 @@ with open('election_data.csv') as election_data_file:
             if columns[2] not in all_people:
                 all_people[columns[2]] = 0
 
-            # Out of this dictionary, look at individuals in column 2
-            # Now, take each name in column 2 and add 1 for each time it shows up
+            # From the dictionary, look at individuals in column 2
+            # Take each name in column 2 and add 1 for each time same variable shows up
             all_people[columns[2]] = all_people[columns[2]] + 1
 
         line_number += 1
@@ -52,22 +50,19 @@ with open('election_data.csv') as election_data_file:
         print('---------------------')
         print('---------------------', file=results_file)
         print(f'All Candidates: {all_people.keys()}')
-        # Now we have the candidates and the number of votes for each candidate
         print('---------------------')
         print('---------------------', file=results_file)
-        # The name of the candiate with the most votes
+        # Print candiate with the most votes
         max_candate_name = ''
-        # The number of votes that the max candiate has
+        # The number of votes that the winning candiate has
         max_candiate_votes = 0
         # Loop through all pairs of information, which are candidates and their respective votes
         for candidate_name, votes_for_candidate in all_people.items():
-            # If the votes for the candiate we are looking at in this iteration of the loop is greater
-            # than what we have recorded so far, replace the max candiate information with this candidate's
-            # info.
+            # If votes for new candidate is greater than previous, replace with new candidate & vote
             if votes_for_candidate > max_candiate_votes:
                 max_candate_name = candidate_name
                 max_candiate_votes = votes_for_candidate
-            # Calculate the percentage of votes that were for this candidate.
+            # Calculate the percentage of votes for each candidate
             percentage = round(votes_for_candidate / votes_counted * 100, 3)
             print(f'{candidate_name}: {percentage}% ({votes_for_candidate})')
             print(f'{candidate_name}: {percentage}% ({votes_for_candidate})', file=results_file)
